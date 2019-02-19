@@ -11,11 +11,7 @@ MAINTAINER marius.retegan@esrf.fr
 # - reasonable fonts for UI
 # - x11vnc
 # - python-websockify
-# - openbox
-# - tint2
-# - xterm
-# - lxrandr
-# - nitrogen
+# - xfce4
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   libgl1-mesa-dri \
   xserver-xorg-video-dummy \
@@ -33,29 +29,6 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 # Get modified build of noVNC
 RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC && \
   rm -rf /opt/noVNC/.git
-
-# Install Python dependencies 
-RUN apt-get update && \
-  apt-get install -y \
-  python3-pip \
-  python3-numpy \
-  python3-h5py \
-  python3-matplotlib \
-  python3-opengl \
-  python3-pyqt5 \
-  python3-pyqt5.qtopengl \
-  python3-six && \
-  apt-get clean
-
-# Install fabio
-RUN pip3 install fabio
-
-# Install silx
-RUN pip3 install silx[gui]
-
-# Clone silx to the home directory of the researcher user
-RUN cd /home/researcher && \
-  git clone https://github.com/silx-kit/silx
 
 # Add supporting files (directory at a time to improve build speed)
 COPY etc /etc
